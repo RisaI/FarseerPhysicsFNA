@@ -101,6 +101,9 @@ namespace FarseerPhysics.Dynamics
                 return;
             }
 
+			if (bodyA == null || bodyB == null)
+				return;
+
             // Does a contact already exist?
             ContactEdge edge = bodyB.ContactList;
             while (edge != null)
