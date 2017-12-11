@@ -284,7 +284,10 @@ namespace FarseerPhysics.Collision
         public void GetFatAABB(int proxyId, out AABB fatAABB)
         {
             Debug.Assert(0 <= proxyId && proxyId < _nodeCapacity);
-            fatAABB = _nodes[proxyId].AABB;
+			if (_nodes[proxyId] != null)
+				fatAABB = _nodes[proxyId].AABB;
+			else
+				fatAABB = new AABB(Vector2.Zero, 0, 0);
         }
 
         /// <summary>
@@ -308,7 +311,7 @@ namespace FarseerPhysics.Collision
 
                 TreeNode<T> node = _nodes[nodeId];
 
-                if (AABB.TestOverlap(ref node.AABB, ref aabb))
+                if (node != null && AABB.TestOverlap(ref node.AABB, ref aabb))
                 {
                     if (node.IsLeaf())
                     {
